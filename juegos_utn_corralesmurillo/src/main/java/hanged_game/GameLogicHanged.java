@@ -8,10 +8,7 @@ package hanged_game;
  *
  * @author pamelamurillo
  */
-public class GameLogicHanged {
-    
-    
-    
+public class GameLogicHanged { 
     public static String newRound() {
         System.out.println("");
         return "";
