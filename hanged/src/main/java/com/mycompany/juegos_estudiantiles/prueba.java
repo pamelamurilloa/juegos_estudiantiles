@@ -1,6 +1,6 @@
-package com.mycompany.hanged;
+package com.mycompany.juegos_estudiantiles;
 
-public class Hanged {
+public class prueba {
 
     public static void main(String[] args) {
         System.out.println("modificacion!");
