@@ -1,1 +1,1 @@
-# juegos_estudiantileskjnk
+# juegos_estudiantiles
