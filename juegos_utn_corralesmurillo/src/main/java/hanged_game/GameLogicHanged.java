@@ -10,7 +10,8 @@ public class GameLogicHanged {
         return amountChar + "";
     }
     
-    public static String convertToString(String[] array){
+    
+    public static String convertToString(String[] array){ //Converts the array to a String, without the brakets
         String temporalWord = "";
         for (int i = 0; array.length > i; i ++) {
             temporalWord += array[i];
@@ -18,11 +19,12 @@ public class GameLogicHanged {
         return temporalWord;
     }
     
+    
     public static String checkChar(String letter, String userWord, String shownWord) { //this method verifies a char input from the user is in the word, and returns the string without those blank spaces
         
         letter = letter.toUpperCase();
-        userWord = userWord.toUpperCase();
-        String[] array2 = shownWord.split("");
+        userWord = userWord.toUpperCase(); //I uppercased everything to maintaing homogeneity
+        String[] array2 = shownWord.split(""); //make an array to show eventually to the user
         
         int position = userWord.indexOf(letter);
         
@@ -38,21 +40,21 @@ public class GameLogicHanged {
     }
 
     
-    public static void main(String[] args) {
-        String shownWord = "***********";
-        shownWord = checkChar("A", "Mississippi", shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("P", "Mississippi", shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("o", "Mississippi", shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("M", "Mississippi", shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("s", "Mississippi", shownWord);
-        System.out.println(shownWord);
-    }
+//    public static void main(String[] args) {
+//        String shownWord = "***********";
+//        shownWord = checkChar("A", "Mississippi", shownWord);
+//        System.out.println(shownWord);
+//        
+//        shownWord = checkChar("P", "Mississippi", shownWord);
+//        System.out.println(shownWord);
+//        
+//        shownWord = checkChar("o", "Mississippi", shownWord);
+//        System.out.println(shownWord);
+//        
+//        shownWord = checkChar("M", "Mississippi", shownWord);
+//        System.out.println(shownWord);
+//        
+//        shownWord = checkChar("s", "Mississippi", shownWord);
+//        System.out.println(shownWord);
+//    }
 }
