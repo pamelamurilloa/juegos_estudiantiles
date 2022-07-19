@@ -14,10 +14,10 @@ public class GameLogicHanged {
     }
     
     
-    public static String makeIncognito(String originalWord) { //Transforms the originalWord for a word of same lenght, filled with *
+    public static String makeIncognito(String originalWord) { //Transforms originalWord for a word of same lenght, filled with *
         String incognitoWord = "";
         for (int i = originalWord.length(); i > 0; i--) {
-            incognitoWord += " _ ";
+            incognitoWord += "*";
         }
         return incognitoWord;
     }
@@ -33,7 +33,7 @@ public class GameLogicHanged {
         if (userWord.contains(letter)) {
             for(int i = 0; userWord.length() > i; i++) {
                 if (i == position) {  // The index is the same position as one of the char
-                    wordArray[i] = " " + letter + " ";
+                    wordArray[i] = letter;
                     position = userWord.indexOf(letter, position + 1);
                 }
            }
@@ -55,18 +55,6 @@ public class GameLogicHanged {
         String newWord = getWordFromFile(5);
         String shownWord = makeIncognito(newWord);
         shownWord = checkChar("a", newWord, shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("b", newWord, shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("c", newWord, shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("d", newWord, shownWord);
-        System.out.println(shownWord);
-        
-        shownWord = checkChar("e", newWord, shownWord);
         System.out.println(shownWord);
     }
 }
