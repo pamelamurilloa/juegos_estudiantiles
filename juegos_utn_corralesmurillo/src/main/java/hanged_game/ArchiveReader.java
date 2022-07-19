@@ -15,28 +15,26 @@ public class ArchiveReader {
     
     
     public void createFile() throws IOException {
-        theWords = new File("words.txt");
+        theWords = new File("wordList.txt");
     }
     
     
     public String readInFile(int numberLetter) throws FileNotFoundException, IOException {
         FileReader reader = new FileReader(theWords);
         String word = "";
-        
-        try (BufferedReader bufferReader = new BufferedReader(reader)) {
-            String line;
-            
-            while ("".equals(word)) {
-                while ((line = bufferReader.readLine()) != null) {
-                    if (numberLetter == line.length()) {
-                        int doIchooseIt = (int) (Math.random() * 10) + 1;
-                        if (doIchooseIt == 5) {
-                            word = line;
-                        }
+        String line;
+        BufferedReader bufferReader = new BufferedReader(reader);
+        while ("".equals(word)) {
+            while ((line = bufferReader.readLine()) != null) {
+                if (numberLetter == line.length()) {
+                    int doIchooseIt = (int) (Math.random() * 10) + 1;
+                    if (doIchooseIt == 5) {
+                        word = line;
                     }
                 }
             }
         }
+        bufferReader.close();
         return word;
     }
 }
