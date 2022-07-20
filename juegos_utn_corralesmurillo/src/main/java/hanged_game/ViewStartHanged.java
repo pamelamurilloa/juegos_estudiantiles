@@ -627,6 +627,7 @@ public class ViewStartHanged extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(238, 159, 58));
         jPanel1.setForeground(new java.awt.Color(240, 170, 101));
 
+        jLabel4.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(128, 51, 36));
         jLabel4.setText("Murillo Anchia Pamela");
 
@@ -652,7 +653,7 @@ public class ViewStartHanged extends javax.swing.JDialog {
         jPanel9.setMaximumSize(new java.awt.Dimension(295, 40));
         jPanel9.setMinimumSize(new java.awt.Dimension(295, 40));
 
-        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Gurmukhi Sangam MN", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Letras utilizadas");
 
@@ -736,7 +737,7 @@ public class ViewStartHanged extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 367, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 366, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
