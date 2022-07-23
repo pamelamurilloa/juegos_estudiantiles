@@ -5,6 +5,7 @@
 package battleship;
 
 import java.util.ArrayList;
+import javax.swing.JPanel;
 
 /**
  *
@@ -12,27 +13,36 @@ import java.util.ArrayList;
  */
 public class locateShips extends javax.swing.JDialog {
 
-    public GridMaker gridMaker;
-    public ArrayList<GridPanelView> gridPlayer;
+    public GridMaker grid;
 
     public locateShips(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         
-        gridMaker = new GridMaker();
-        gridMaker.makeGrid("Pame", 10, 10);
-        gridPlayer = new ArrayList<>();
-        
+        locateGrid(gridLayout, "Pame", 10, 10, "", "empty"); //This creates the grid layout in whitch to put the boats
 
+        
+        locateGrid(twoTileBoat, "Pame", 1, 2, "◉", "ship"); //This creates the 2 tile boat
+        locateGrid(threeTileBoat, "Pame", 1, 3, "◉", "ship"); //This creates the 2 tile boat
+        locateGrid(fourTileBoat, "Pame", 1, 4, "◉", "ship"); //This creates the 2 tile boat
+        locateGrid(fiveTileBoat, "Pame", 1, 5, "◉", "ship"); //This creates the 2 tile boat
+        
+        
+//        locateGrid(gridLayout, "Pame", 10, 10);
+//        locateGrid(gridLayout, "Pame", 10, 10);
+//        locateGrid(gridLayout, "Pame", 10, 10);
+//        locateGrid(gridLayout, "Pame", 10, 10);
+//        locateGrid(gridLayout, "Pame", 10, 10);
     }
 
     
-    public void locateGrid() {
-        for(int i = 0; i < gridMaker.getGridPlayer().size(); i++) {
-            gridPlayer.add(new GridPanelView(gridMaker.getGridPlayer().get(i)));
-            gridLayout.add(gridPlayer.get(i));
+    public void locateGrid(JPanel panel, String playerName, int x, int y, String text, String state) {
+        grid = new GridMaker(playerName, x, y, text, state);
+        for(int i = 0; i < grid.getGridPlayer().size(); i++) {
+            panel.add(new GridPanelView(grid.getGridPlayer().get(i)));
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,30 +55,44 @@ public class locateShips extends javax.swing.JDialog {
         pnlHeader = new javax.swing.JPanel();
         lblMyName = new javax.swing.JLabel();
         lblWelcomeMessage = new javax.swing.JLabel();
-        scrollPanel = new javax.swing.JScrollPane();
-        gridLayout = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        btnConfirm = new javax.swing.JButton();
-        lblError = new javax.swing.JLabel();
+        boatsHeader = new javax.swing.JLabel();
         btnAutomatic = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        lblNameAsking = new javax.swing.JLabel();
+        gridHeader = new javax.swing.JLabel();
+        twoTileBoatScroll = new javax.swing.JScrollPane();
+        twoTileBoat = new javax.swing.JPanel();
+        threeTileBoatScroll = new javax.swing.JScrollPane();
+        threeTileBoat = new javax.swing.JPanel();
+        fiveTileBoatScroll = new javax.swing.JScrollPane();
+        fiveTileBoat = new javax.swing.JPanel();
+        fourTileBoatScroll = new javax.swing.JScrollPane();
+        fourTileBoat = new javax.swing.JPanel();
+        threeOneTileBoatScroll = new javax.swing.JScrollPane();
+        threeOneTileBoat = new javax.swing.JPanel();
+        threeThreeTileBoatScroll = new javax.swing.JScrollPane();
+        threeThreeTileBoat = new javax.swing.JPanel();
+        boatGrid = new javax.swing.JScrollPane();
+        gridLayout = new javax.swing.JPanel();
+        unimportant1 = new javax.swing.JPanel();
+        unimportant2 = new javax.swing.JPanel();
         lblPlayerName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        unimportant3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
+        unimportant4 = new javax.swing.JPanel();
+        unimportant5 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
+        unimportant6 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
+        lblError = new javax.swing.JLabel();
+        progressBar = new javax.swing.JProgressBar();
+        btnConfirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(null);
+        setMinimumSize(new java.awt.Dimension(1300, 850));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlHeader.setBackground(new java.awt.Color(0, 102, 204));
         pnlHeader.setForeground(new java.awt.Color(0, 51, 204));
@@ -88,7 +112,7 @@ public class locateShips extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlHeaderLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(lblWelcomeMessage)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 559, Short.MAX_VALUE)
                 .addComponent(lblMyName)
                 .addGap(17, 17, 17))
         );
@@ -102,54 +126,11 @@ public class locateShips extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        scrollPanel.setBackground(new java.awt.Color(153, 255, 204));
-        scrollPanel.setForeground(new java.awt.Color(153, 255, 204));
-        scrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        scrollPanel.setHorizontalScrollBar(null);
+        getContentPane().add(pnlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        gridLayout.setBackground(new java.awt.Color(204, 255, 239));
-        gridLayout.setForeground(new java.awt.Color(102, 255, 204));
-        gridLayout.setLayout(new java.awt.GridLayout(10, 10));
-        scrollPanel.setViewportView(gridLayout);
-
-        jLabel1.setFont(new java.awt.Font("Helvetica", 1, 18)); // NOI18N
-        jLabel1.setText("Arrastra los barcos al espacio que desee");
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-
-        btnConfirm.setBackground(new java.awt.Color(204, 255, 239));
-        btnConfirm.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
-        btnConfirm.setForeground(new java.awt.Color(0, 0, 51));
-        btnConfirm.setText("Confirmar");
-        btnConfirm.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConfirm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
-        );
+        boatsHeader.setFont(new java.awt.Font("Helvetica", 1, 18)); // NOI18N
+        boatsHeader.setText("Arrastra los barcos al espacio que desee");
+        getContentPane().add(boatsHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 220, -1, -1));
 
         btnAutomatic.setBackground(new java.awt.Color(204, 255, 239));
         btnAutomatic.setFont(new java.awt.Font("Helvetica Neue", 0, 16)); // NOI18N
@@ -161,35 +142,191 @@ public class locateShips extends javax.swing.JDialog {
                 btnAutomaticActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAutomatic, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 210, 99, 37));
 
-        jLabel2.setFont(new java.awt.Font("Hiragino Sans GB", 0, 16)); // NOI18N
-        jLabel2.setText("¡Cómo te llamas?");
+        lblNameAsking.setFont(new java.awt.Font("Hiragino Sans GB", 0, 16)); // NOI18N
+        lblNameAsking.setText("¿Cómo te llamas?");
+        getContentPane().add(lblNameAsking, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 93, -1, -1));
 
-        jPanel2.setBackground(new java.awt.Color(0, 153, 204));
+        gridHeader.setFont(new java.awt.Font("Hiragino Sans GB", 0, 16)); // NOI18N
+        gridHeader.setText("Esta es tu área de juego");
+        getContentPane().add(gridHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(244, 165, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        twoTileBoatScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        twoTileBoatScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        twoTileBoatScroll.setMaximumSize(new java.awt.Dimension(60, 120));
+        twoTileBoatScroll.setMinimumSize(new java.awt.Dimension(60, 120));
+        twoTileBoatScroll.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                twoTileBoatScrollMouseDragged(evt);
+            }
+        });
+
+        twoTileBoat.setBackground(new java.awt.Color(204, 255, 204));
+        twoTileBoat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        twoTileBoat.setForeground(new java.awt.Color(0, 0, 0));
+        twoTileBoat.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        twoTileBoat.setMaximumSize(new java.awt.Dimension(60, 120));
+        twoTileBoat.setMinimumSize(new java.awt.Dimension(60, 120));
+        twoTileBoat.setPreferredSize(new java.awt.Dimension(60, 120));
+        twoTileBoat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                twoTileBoatMouseDragged(evt);
+            }
+        });
+        twoTileBoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                twoTileBoatMouseReleased(evt);
+            }
+        });
+        twoTileBoat.setLayout(new java.awt.GridLayout(2, 1));
+        twoTileBoatScroll.setViewportView(twoTileBoat);
+
+        getContentPane().add(twoTileBoatScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 360, 60, 120));
+
+        threeTileBoatScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        threeTileBoatScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        threeTileBoat.setBackground(new java.awt.Color(204, 255, 204));
+        threeTileBoat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        threeTileBoat.setForeground(new java.awt.Color(0, 0, 0));
+        threeTileBoat.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        threeTileBoat.setMaximumSize(new java.awt.Dimension(60, 180));
+        threeTileBoat.setMinimumSize(new java.awt.Dimension(60, 180));
+        threeTileBoat.setPreferredSize(new java.awt.Dimension(60, 180));
+        threeTileBoat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                threeTileBoatMouseDragged(evt);
+            }
+        });
+        threeTileBoat.setLayout(new java.awt.GridLayout(3, 1));
+        threeTileBoatScroll.setViewportView(threeTileBoat);
+
+        getContentPane().add(threeTileBoatScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 340, 60, 180));
+
+        fiveTileBoatScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        fiveTileBoatScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        fiveTileBoat.setBackground(new java.awt.Color(204, 255, 204));
+        fiveTileBoat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fiveTileBoat.setForeground(new java.awt.Color(0, 0, 0));
+        fiveTileBoat.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        fiveTileBoat.setMaximumSize(new java.awt.Dimension(60, 300));
+        fiveTileBoat.setMinimumSize(new java.awt.Dimension(60, 300));
+        fiveTileBoat.setPreferredSize(new java.awt.Dimension(60, 300));
+        fiveTileBoat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                fiveTileBoatMouseDragged(evt);
+            }
+        });
+        fiveTileBoat.setLayout(new java.awt.GridLayout(5, 1));
+        fiveTileBoatScroll.setViewportView(fiveTileBoat);
+
+        getContentPane().add(fiveTileBoatScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 280, 60, 300));
+
+        fourTileBoatScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        fourTileBoatScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        fourTileBoat.setBackground(new java.awt.Color(204, 255, 204));
+        fourTileBoat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        fourTileBoat.setForeground(new java.awt.Color(0, 0, 0));
+        fourTileBoat.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        fourTileBoat.setMaximumSize(new java.awt.Dimension(60, 240));
+        fourTileBoat.setMinimumSize(new java.awt.Dimension(60, 240));
+        fourTileBoat.setPreferredSize(new java.awt.Dimension(60, 240));
+        fourTileBoat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                fourTileBoatMouseDragged(evt);
+            }
+        });
+        fourTileBoat.setLayout(new java.awt.GridLayout(4, 1));
+        fourTileBoatScroll.setViewportView(fourTileBoat);
+
+        getContentPane().add(fourTileBoatScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 310, 60, 240));
+
+        threeOneTileBoatScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        threeOneTileBoatScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        threeOneTileBoat.setBackground(new java.awt.Color(204, 255, 204));
+        threeOneTileBoat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        threeOneTileBoat.setForeground(new java.awt.Color(0, 0, 0));
+        threeOneTileBoat.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        threeOneTileBoat.setMaximumSize(new java.awt.Dimension(120, 180));
+        threeOneTileBoat.setMinimumSize(new java.awt.Dimension(120, 180));
+        threeOneTileBoat.setPreferredSize(new java.awt.Dimension(120, 180));
+        threeOneTileBoat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                threeOneTileBoatMouseDragged(evt);
+            }
+        });
+        threeOneTileBoat.setLayout(new java.awt.GridLayout(3, 2));
+        threeOneTileBoatScroll.setViewportView(threeOneTileBoat);
+
+        getContentPane().add(threeOneTileBoatScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 550, 120, 180));
+
+        threeThreeTileBoatScroll.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        threeThreeTileBoatScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        threeThreeTileBoat.setBackground(new java.awt.Color(204, 255, 204));
+        threeThreeTileBoat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        threeThreeTileBoat.setForeground(new java.awt.Color(0, 0, 0));
+        threeThreeTileBoat.setMaximumSize(new java.awt.Dimension(120, 300));
+        threeThreeTileBoat.setMinimumSize(new java.awt.Dimension(120, 300));
+        threeThreeTileBoat.setPreferredSize(new java.awt.Dimension(120, 300));
+        threeThreeTileBoat.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                threeThreeTileBoatMouseDragged(evt);
+            }
+        });
+        threeThreeTileBoat.setLayout(new java.awt.GridLayout());
+        threeThreeTileBoatScroll.setViewportView(threeThreeTileBoat);
+
+        getContentPane().add(threeThreeTileBoatScroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 310, 120, 240));
+
+        boatGrid.setBackground(new java.awt.Color(153, 255, 204));
+        boatGrid.setForeground(new java.awt.Color(153, 255, 204));
+        boatGrid.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        boatGrid.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        boatGrid.setHorizontalScrollBar(null);
+
+        gridLayout.setBackground(new java.awt.Color(44, 184, 184));
+        gridLayout.setForeground(new java.awt.Color(102, 255, 204));
+        gridLayout.setMaximumSize(new java.awt.Dimension(600, 600));
+        gridLayout.setMinimumSize(new java.awt.Dimension(600, 600));
+        gridLayout.setLayout(new java.awt.GridLayout(10, 10));
+        boatGrid.setViewportView(gridLayout);
+
+        getContentPane().add(boatGrid, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 208, 600, 600));
+
+        unimportant1.setBackground(new java.awt.Color(0, 153, 204));
+
+        javax.swing.GroupLayout unimportant1Layout = new javax.swing.GroupLayout(unimportant1);
+        unimportant1.setLayout(unimportant1Layout);
+        unimportant1Layout.setHorizontalGroup(
+            unimportant1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 18, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        unimportant1Layout.setVerticalGroup(
+            unimportant1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 26, Short.MAX_VALUE)
         );
 
-        jPanel3.setBackground(new java.awt.Color(0, 102, 153));
+        getContentPane().add(unimportant1, new org.netbeans.lib.awtextra.AbsoluteConstraints(43, 92, -1, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        unimportant2.setBackground(new java.awt.Color(0, 102, 153));
+
+        javax.swing.GroupLayout unimportant2Layout = new javax.swing.GroupLayout(unimportant2);
+        unimportant2.setLayout(unimportant2Layout);
+        unimportant2Layout.setHorizontalGroup(
+            unimportant2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 50, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        unimportant2Layout.setVerticalGroup(
+            unimportant2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 32, Short.MAX_VALUE)
         );
+
+        getContentPane().add(unimportant2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
         lblPlayerName.setBackground(new java.awt.Color(234, 234, 234));
         lblPlayerName.setFont(new java.awt.Font("Hiragino Sans GB", 0, 15)); // NOI18N
@@ -197,11 +334,9 @@ public class locateShips extends javax.swing.JDialog {
         lblPlayerName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lblPlayerName.setText("Escribe tu nombre aquí");
         lblPlayerName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        getContentPane().add(lblPlayerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 92, 288, -1));
 
-        jLabel3.setFont(new java.awt.Font("Hiragino Sans GB", 0, 16)); // NOI18N
-        jLabel3.setText("Esta es tu área de juego");
-
-        jPanel4.setBackground(new java.awt.Color(0, 102, 153));
+        unimportant3.setBackground(new java.awt.Color(0, 102, 153));
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 204));
 
@@ -219,41 +354,45 @@ public class locateShips extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("u");
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout unimportant3Layout = new javax.swing.GroupLayout(unimportant3);
+        unimportant3.setLayout(unimportant3Layout);
+        unimportant3Layout.setHorizontalGroup(
+            unimportant3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unimportant3Layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(unimportant3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+        unimportant3Layout.setVerticalGroup(
+            unimportant3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unimportant3Layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(0, 153, 204));
+        getContentPane().add(unimportant3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 112, -1, -1));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        unimportant4.setBackground(new java.awt.Color(0, 153, 204));
+
+        javax.swing.GroupLayout unimportant4Layout = new javax.swing.GroupLayout(unimportant4);
+        unimportant4.setLayout(unimportant4Layout);
+        unimportant4Layout.setHorizontalGroup(
+            unimportant4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 13, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        unimportant4Layout.setVerticalGroup(
+            unimportant4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 37, Short.MAX_VALUE)
         );
 
-        jPanel7.setBackground(new java.awt.Color(0, 102, 153));
+        getContentPane().add(unimportant4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1177, 133, -1, -1));
+
+        unimportant5.setBackground(new java.awt.Color(0, 102, 153));
 
         jPanel10.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -268,23 +407,25 @@ public class locateShips extends javax.swing.JDialog {
             .addGap(0, 11, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout unimportant5Layout = new javax.swing.GroupLayout(unimportant5);
+        unimportant5.setLayout(unimportant5Layout);
+        unimportant5Layout.setHorizontalGroup(
+            unimportant5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unimportant5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        unimportant5Layout.setVerticalGroup(
+            unimportant5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unimportant5Layout.createSequentialGroup()
                 .addGap(0, 9, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel8.setBackground(new java.awt.Color(0, 102, 153));
+        getContentPane().add(unimportant5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1177, 86, -1, -1));
+
+        unimportant6.setBackground(new java.awt.Color(0, 102, 153));
 
         jPanel9.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -299,118 +440,87 @@ public class locateShips extends javax.swing.JDialog {
             .addGap(0, 11, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout unimportant6Layout = new javax.swing.GroupLayout(unimportant6);
+        unimportant6.setLayout(unimportant6Layout);
+        unimportant6Layout.setHorizontalGroup(
+            unimportant6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unimportant6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        unimportant6Layout.setVerticalGroup(
+            unimportant6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, unimportant6Layout.createSequentialGroup()
                 .addGap(0, 9, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel1)
-                        .addGap(50, 50, 50)
-                        .addComponent(btnAutomatic, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblPlayerName, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(662, 662, 662)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(pnlHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(lblPlayerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3)))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(btnAutomatic, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(scrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
+        getContentPane().add(unimportant6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1221, 86, -1, -1));
+        getContentPane().add(lblError, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 780, 374, 22));
+        getContentPane().add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 750, 374, 28));
+
+        btnConfirm.setBackground(new java.awt.Color(204, 255, 239));
+        btnConfirm.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        btnConfirm.setForeground(new java.awt.Color(0, 0, 51));
+        btnConfirm.setText("Confirmar");
+        btnConfirm.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(1130, 750, 118, 56));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAutomaticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutomaticActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAutomaticActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    private void btnAutomaticActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutomaticActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAutomaticActionPerformed
+    private void twoTileBoatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoTileBoatMouseDragged
+        twoTileBoatScroll.setLocation(twoTileBoatScroll.getLocation().x + evt.getX() - twoTileBoatScroll.getWidth()/2, 
+            twoTileBoatScroll.getLocation().y + evt.getY() - twoTileBoatScroll.getHeight());
+    }//GEN-LAST:event_twoTileBoatMouseDragged
+
+    private void twoTileBoatScrollMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoTileBoatScrollMouseDragged
+
+    }//GEN-LAST:event_twoTileBoatScrollMouseDragged
+
+    private void fiveTileBoatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fiveTileBoatMouseDragged
+        fiveTileBoatScroll.setLocation(fiveTileBoatScroll.getLocation().x + evt.getX() - fiveTileBoatScroll.getWidth()/2, 
+            fiveTileBoatScroll.getLocation().y + evt.getY() - fiveTileBoatScroll.getHeight());
+    }//GEN-LAST:event_fiveTileBoatMouseDragged
+
+    private void threeOneTileBoatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeOneTileBoatMouseDragged
+        threeOneTileBoatScroll.setLocation(threeOneTileBoatScroll.getLocation().x + evt.getX() - threeOneTileBoatScroll.getWidth()/2, 
+            threeOneTileBoatScroll.getLocation().y + evt.getY() - threeOneTileBoatScroll.getHeight());
+    }//GEN-LAST:event_threeOneTileBoatMouseDragged
+
+    private void threeTileBoatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeTileBoatMouseDragged
+        threeTileBoatScroll.setLocation(threeTileBoatScroll.getLocation().x + evt.getX() - threeTileBoatScroll.getWidth()/2, 
+            threeTileBoatScroll.getLocation().y + evt.getY() - threeTileBoatScroll.getHeight());
+    }//GEN-LAST:event_threeTileBoatMouseDragged
+
+    private void fourTileBoatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fourTileBoatMouseDragged
+        fourTileBoatScroll.setLocation(fourTileBoatScroll.getLocation().x + evt.getX() - fourTileBoatScroll.getWidth()/2, 
+            fourTileBoatScroll.getLocation().y + evt.getY() - fourTileBoatScroll.getHeight());
+    }//GEN-LAST:event_fourTileBoatMouseDragged
+
+    private void twoTileBoatMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_twoTileBoatMouseReleased
+        
+        System.out.println(twoTileBoatScroll.getLocation().x +", "+twoTileBoatScroll.getLocation().y);
+    }//GEN-LAST:event_twoTileBoatMouseReleased
+
+    private void threeThreeTileBoatMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_threeThreeTileBoatMouseDragged
+        threeThreeTileBoatScroll.setLocation(threeThreeTileBoatScroll.getLocation().x + evt.getX() - threeThreeTileBoatScroll.getWidth()/2, 
+            threeThreeTileBoatScroll.getLocation().y + evt.getY() - threeThreeTileBoatScroll.getHeight());
+    }//GEN-LAST:event_threeThreeTileBoatMouseDragged
 
     /**
      * @param args the command line arguments
@@ -455,28 +565,40 @@ public class locateShips extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane boatGrid;
+    private javax.swing.JLabel boatsHeader;
     private javax.swing.JButton btnAutomatic;
     private javax.swing.JButton btnConfirm;
+    private javax.swing.JPanel fiveTileBoat;
+    private javax.swing.JScrollPane fiveTileBoatScroll;
+    private javax.swing.JPanel fourTileBoat;
+    private javax.swing.JScrollPane fourTileBoatScroll;
+    private javax.swing.JLabel gridHeader;
     private javax.swing.JPanel gridLayout;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel lblError;
     private javax.swing.JLabel lblMyName;
+    private javax.swing.JLabel lblNameAsking;
     private javax.swing.JTextField lblPlayerName;
     private javax.swing.JLabel lblWelcomeMessage;
     private javax.swing.JPanel pnlHeader;
-    private javax.swing.JScrollPane scrollPanel;
+    private javax.swing.JProgressBar progressBar;
+    private javax.swing.JPanel threeOneTileBoat;
+    private javax.swing.JScrollPane threeOneTileBoatScroll;
+    private javax.swing.JPanel threeThreeTileBoat;
+    private javax.swing.JScrollPane threeThreeTileBoatScroll;
+    private javax.swing.JPanel threeTileBoat;
+    private javax.swing.JScrollPane threeTileBoatScroll;
+    private javax.swing.JPanel twoTileBoat;
+    private javax.swing.JScrollPane twoTileBoatScroll;
+    private javax.swing.JPanel unimportant1;
+    private javax.swing.JPanel unimportant2;
+    private javax.swing.JPanel unimportant3;
+    private javax.swing.JPanel unimportant4;
+    private javax.swing.JPanel unimportant5;
+    private javax.swing.JPanel unimportant6;
     // End of variables declaration//GEN-END:variables
 }

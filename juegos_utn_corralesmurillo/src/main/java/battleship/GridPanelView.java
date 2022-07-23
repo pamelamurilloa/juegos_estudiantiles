@@ -36,10 +36,12 @@ public class GridPanelView extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblGridText.setFont(new java.awt.Font("Helvetica Neue", 0, 48)); // NOI18N
+        lblGridText.setFont(new java.awt.Font("Helvetica Neue", 0, 40)); // NOI18N
         lblGridText.setForeground(new java.awt.Color(0, 204, 204));
         lblGridText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblGridText.setText(getPanel().getText() + "");
+        lblGridText.setAlignmentX(0.5F);
+        lblGridText.setPreferredSize(new java.awt.Dimension(40, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -49,9 +51,7 @@ public class GridPanelView extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lblGridText)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(lblGridText, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
         lblGridText.getAccessibleContext().setAccessibleName("");

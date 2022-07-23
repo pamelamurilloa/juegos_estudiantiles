@@ -13,10 +13,22 @@ import java.util.Arrays;
  */
 public class GridMaker {
     
+    private String namePlayer;
+    private int heigth;
+    private int width;
+    private String text;
+    private String state;
+    
     ArrayList<GridPanel> grid;
 
-    public GridMaker() {
+    public GridMaker(String namePlayer, int heigth, int width, String text, String state) {
         grid = new ArrayList<>();
+        this.namePlayer = namePlayer;
+        this.heigth = heigth;
+        this.width = width;
+        this.text = text;
+        this.state = state;
+        makeGrid(heigth, width, text, state);
     }
 
     
@@ -30,10 +42,10 @@ public class GridMaker {
     }
     
     
-    public void makeGrid(String namePlayer, int width, int lenght) {
-        for (int i = 0; lenght > i; i++) {
+    private void makeGrid(int heigth, int width, String text, String state) {
+        for (int i = 0; heigth > i; i++) {
             for (int j = 0; width > j; j++) {
-                grid.add(new GridPanel("/", "empty", namePlayer, i, j));
+                grid.add(new GridPanel(text, state, namePlayer, i, j));
             }
         }
     }
@@ -48,14 +60,5 @@ public class GridMaker {
         System.out.println("Aun no se ha rellenado nada de esto");
     }
     
-    
-     public static void main(String[] args) {
-         GridMaker gridMaker = new GridMaker();
-         gridMaker.makeGrid("Pame", 10, 10);
-         System.out.println(gridMaker.getGridPlayer().toString());
-         
-     }
-     
-     
 }
 
